@@ -1,22 +1,74 @@
+/*
+Write a C++ program to design a base class Person (name, address, phone_no). Derive a class Employee (eno, ename) from Person. Derive a class Manager (designation, department name, basic-salary) from Employee. Write a menu driven program to:
+
+a. Accept all details of 'n' managers.
+b. Display manager having highest salary
+*/
+
+
+
+
+
+
+
 #include<iostream>
 using namespace std;
-class complex{
-	public:
-		int real ;
-		int img;
-		
-		complex operator+(complex c)
-		{
-			complex temp;
-			temp.real=real+c.real;
-			temp.img=img+c.img;
-			return temp;
-		}
+class Person     //Base Class
+{
+    protected:
+        char pname[50], address[100];
+        int phone_no;
 };
-int main(){
-	complex c1,c2,c3;
-	c1.real=5;c1.img=3;
-	c2.real=10;c2.img=5;
-	c3=c1+c2;
-	cout<<c3.real<<"+i"<<c3.img<<endl;
+//Class Employee - Derived Class. Derived from Class Person and Base Class of Manager
+class Employee : public Person  
+{                                                   
+    public:
+        int eno;
+        char ename[50];
+};
+class Manager : public Employee  //Class Manager - Derived Class. Derived from Class Employee
+{
+    public:
+        char designation[50], deptname[100];
+        float basic_salary;
+    public:
+        void accept_details()
+        {
+                cout<<"\n Enter Details of Manager ";
+                cout<<"\n -------------------------- ";
+                cout<<"\n Enter Employee No. : ";
+                cin>>eno;
+                cout<<"\n Enter Name : ";
+                cin>>ename;
+                cout<<"\n Enter Address : ";
+                cin>>address;
+                cout<<"\n Enter Phone No. : ";
+                cin>>phone_no;
+                cout<<"\n Enter Designation : ";
+                cin>>designation;
+                cout<<"\n Enter Department Name : ";
+                cin>>deptname;
+                cout<<"\n Enter Basic Salary : ";
+                cin>>basic_salary;
+        }
+};
+int main()
+{
+        int i,cnt,temp;
+        Manager man[100];
+        cout<<"\n How Many Managers You Want to Enter? : ";   
+        cin>>cnt;          //Accept details for 'n' managers
+        for(i=1;i<=cnt;i++)
+        {
+                man[i].accept_details();
+        }
+        temp=0;
+        for(i=1;i<=cnt;i++)
+        {
+                if(man[temp].basic_salary<man[i].basic_salary)
+                temp=i;
+        }
+        cout<<"\n Manager with Highest Salary is : "<<man[temp].basic_salary;
+        cout<<" \n And, Manager Name is : "<<man[temp].ename;
+        return 0;
 }
